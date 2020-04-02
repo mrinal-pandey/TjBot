@@ -19,6 +19,11 @@ public class LazyCommandFinder<C extends CommandContext> extends CommandFinder<C
   private final Supplier<CommandFinder<C>> supplier;
   private CommandFinder<C> realized;
 
+  /* `realized` is being checked to be `null` in the function `getRealized()` which further fetches
+   * it, if it is `null`, hence according to the logic of program it need not be initialized in
+   * the constructor
+   * */
+  @SuppressWarnings("initialization.fields.uninitialized")
   public LazyCommandFinder(Supplier<CommandFinder<C>> supplier) {
     super(new DiscoveryRootCommand<>());
     this.supplier = supplier;

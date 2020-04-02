@@ -33,6 +33,10 @@ public class UserParsers {
    * @param jda the jda instance to use
    * @return the parser
    */
+  /* `matcher.group(1)` on line #52 may return `null` leading `id` on line #56 to be `null`,
+   * `id` subsequently calls `isBlank()`on a `null` reference in such a case, a probable issue in TjBot
+   * */
+  @SuppressWarnings("argument.type.incompatible")
   public static AtomicParser<User> userByMention(JDA jda) {
     Pattern pattern = Pattern.compile("<@(\\d+)>");
 

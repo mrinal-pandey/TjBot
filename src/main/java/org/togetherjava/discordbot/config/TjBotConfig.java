@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Objects;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * The pojo for the main config file for this bot.
@@ -48,6 +49,11 @@ public class TjBotConfig {
    *
    * @return the bot token
    */
+  /* This function is used to reset the access token of the user hence resetting `botToken` to `null`
+   * makes sense, but `botToken` can't be made `@Nullable` as at other points in the system
+   * it needs to have a value
+   * */
+  @SuppressWarnings("assignment.type.incompatible")
   public String getAndDeleteBotToken() {
     String token = botToken;
     botToken = null;

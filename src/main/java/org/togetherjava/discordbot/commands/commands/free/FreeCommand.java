@@ -26,6 +26,10 @@ public class FreeCommand extends CommandNode<CommandContext> {
   private final LastMessageInChannelListener lastMessageInChannelListener;
   private final DurationFormatter durationFormatter;
 
+  /* Calling `execute()`, an instance method, inside of a constructor could be dangerous as the
+   * object is still under initialization inside of a constructor, a probable issue in TjBot
+   * */
+  @SuppressWarnings({"methodref.receiver.bound.invalid", "method.invocation.invalid"})
   @Inject
   public FreeCommand(JDA jda, TjBotConfig config) {
     super("free");

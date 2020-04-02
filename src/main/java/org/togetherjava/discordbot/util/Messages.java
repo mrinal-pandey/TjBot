@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 import java.util.Optional;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * A collection of messages, read from a file and maybe translated.
@@ -18,6 +19,11 @@ public class Messages {
   /**
    * Creates a new messages instance.
    */
+  /* The constructor is initializing the field `map` but the checker framework says otherwise
+   * Also `inputStream`, if becomes `null`, throws an exception which is catched properly by the
+   * code hence it is safe
+   * */
+  @SuppressWarnings({"initialization.fields.uninitialized", "argument.type.incompatible"})
   public Messages() {
     try (InputStream inputStream = getClass().getResourceAsStream("/messages.yml")) {
       map = new ObjectMapper(new YAMLFactory())
@@ -69,7 +75,7 @@ public class Messages {
     return implGet(key, map) != null;
   }
 
-  private String implGet(String path, Map<String, Object> root) {
+  private @Nullable String implGet(String path, Map<String, Object> root) {
     String firstPart = path.split("\\.")[0];
 
     if (!root.containsKey(firstPart)) {

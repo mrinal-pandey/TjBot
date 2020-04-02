@@ -30,6 +30,11 @@ public class CommandListener extends ListenerAdapter {
     this.executor = executor;
   }
 
+  /* `e.getCause()` is not `null` on line #54 as assured by an if-check above it,
+   * `e.getMessage()` might return `null` on line #60 and sending a `null` message if the command
+   * to run was not found doesn't make sense, probable issue in TjBot
+   * */
+  @SuppressWarnings({"dereference.of.nullable", "argument.type.incompatible"})
   @Override
   public void onMessageReceived(@Nonnull MessageReceivedEvent event) {
     if (event.getAuthor().isBot()) {

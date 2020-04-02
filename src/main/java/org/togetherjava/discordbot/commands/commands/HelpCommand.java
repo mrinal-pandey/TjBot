@@ -25,6 +25,10 @@ public class HelpCommand extends CommandNode<CommandContext> {
   private final CommandFinder<CommandContext> commandFinder;
   private final Messages messages;
 
+  /* Calling `execute()`, an instance method, inside of a constructor could be dangerous as the
+   * object is still under initialization inside of a constructor, a probable issue in TjBot
+   * */
+  @SuppressWarnings({"methodref.receiver.bound.invalid", "method.invocation.invalid"})
   @Inject
   public HelpCommand(CommandFinder<CommandContext> finder, Messages messages) {
     super("help");

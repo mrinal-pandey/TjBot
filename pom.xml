@@ -22,13 +22,30 @@
   <build>
     <plugins>
       <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <release>11</release>
-          <compilerArgs>
-            <arg>-parameters</arg>
-          </compilerArgs>
-        </configuration>
+	<artifactId>maven-compiler-plugin</artifactId>
+    <version>3.8.1</version>
+    <configuration>
+      <fork>true</fork>
+      <release>11</release>
+      <compilerArguments>
+        <Xmaxerrs>10000</Xmaxerrs>
+        <Xmaxwarns>10000</Xmaxwarns>
+      </compilerArguments>
+      <annotationProcessorPaths>
+        <path>
+          <groupId>org.checkerframework</groupId>
+          <artifactId>checker</artifactId>
+          <version>3.2.0</version>
+        </path>
+      </annotationProcessorPaths>
+      <annotationProcessors>
+	      <annotationProcessor>org.checkerframework.checker.nullness.NullnessChecker</annotationProcessor>
+      </annotationProcessors>
+      <compilerArgs>
+	<arg>-parameters</arg>
+        <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED</arg>
+      </compilerArgs>
+    </configuration>      
       </plugin>
 
       <plugin>
@@ -89,6 +106,12 @@
       <artifactId>jbock</artifactId>
       <version>${jbock.version}</version>
       <scope>provided</scope>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.checkerframework</groupId>
+      <artifactId>checker-qual</artifactId>
+      <version>3.2.0</version>
     </dependency>
   </dependencies>
 

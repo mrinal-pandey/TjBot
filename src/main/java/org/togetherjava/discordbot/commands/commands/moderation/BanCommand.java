@@ -24,6 +24,10 @@ import org.togetherjava.discordbot.commands.commands.BasePrefixCommand;
 @ActiveCommand(name = "ban", parentClass = BasePrefixCommand.class)
 public class BanCommand extends CommandNode<CommandContext> {
 
+  /* Calling `execute()`, an instance method, inside of a constructor could be dangerous as the
+   * object is still under initialization inside of a constructor, a probable issue in TjBot
+   * */
+  @SuppressWarnings({"methodref.receiver.bound.invalid", "method.invocation.invalid"})
   @Inject
   public BanCommand() {
     // The keyword for this command

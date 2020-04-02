@@ -24,6 +24,10 @@ public class BasePrefixCommand extends CommandNode<CommandContext> {
    *
    * @param config the config
    */
+  /* Computation inside of a constructor could be dangerous as the
+   * object is still under initialization inside of a constructor, a probable issue in TjBot
+   * */
+  @SuppressWarnings("method.invocation.invalid")
   @Inject
   public BasePrefixCommand(TjBotConfig config) {
     super(Command.nop(), getParserForPrefix(config));
